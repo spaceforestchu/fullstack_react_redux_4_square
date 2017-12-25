@@ -950,7 +950,7 @@ var _reactDom = __webpack_require__(18);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _components = __webpack_require__(27);
+var _containers = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -975,9 +975,9 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_components.NavContainer, null),
+				_react2.default.createElement(_containers.NavContainer, null),
 				'React app',
-				_react2.default.createElement(_components.Venues, null)
+				_react2.default.createElement(_containers.Venues, null)
 			);
 		}
 	}]);
@@ -18296,7 +18296,10 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 27 */
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18307,11 +18310,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Venues = exports.NavContainer = undefined;
 
-var _NavContainer = __webpack_require__(28);
+var _NavContainer = __webpack_require__(31);
 
 var _NavContainer2 = _interopRequireDefault(_NavContainer);
 
-var _Venues = __webpack_require__(29);
+var _Venues = __webpack_require__(32);
 
 var _Venues2 = _interopRequireDefault(_Venues);
 
@@ -18321,14 +18324,14 @@ exports.NavContainer = _NavContainer2.default;
 exports.Venues = _Venues2.default;
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -18345,154 +18348,223 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var NavigateBar = function NavigateBar(props) {
-  return _react2.default.createElement(
-    "div",
-    null,
-    _react2.default.createElement(
-      "nav",
-      { className: "navbar navbar-expand-md navbar-dark bg-dark fixed-top" },
-      _react2.default.createElement(
-        "a",
-        { className: "navbar-brand", href: "#" },
-        "4 Square"
-      ),
-      _react2.default.createElement(
-        "button",
-        { className: "navbar-toggler", type: "button", "data-toggle": "collapse", "data-target": "#navbarsExampleDefault", "aria-controls": "navbarsExampleDefault", "aria-expanded": "false", "aria-label": "Toggle navigation" },
-        _react2.default.createElement("span", { className: "navbar-toggler-icon" })
-      ),
-      _react2.default.createElement(
-        "div",
-        { className: "collapse navbar-collapse", id: "navbarsExampleDefault" },
-        _react2.default.createElement(
-          "ul",
-          { className: "navbar-nav mr-auto" },
-          _react2.default.createElement(
-            "li",
-            { className: "nav-item active" },
-            _react2.default.createElement(
-              "a",
-              { className: "nav-link", "data-toggle": "modal", "data-target": "#exampleModal", href: "#" },
-              "Log In / Sign In",
-              _react2.default.createElement(
-                "span",
-                { className: "sr-only" },
-                "(current)"
-              )
-            )
-          )
-        ),
-        _react2.default.createElement(
-          "form",
-          { className: "form-inline my-2 my-lg-0" },
-          _react2.default.createElement("input", { className: "form-control mr-sm-2", type: "text", placeholder: "Search", "aria-label": "Search" }),
-          _react2.default.createElement(
-            "button",
-            { className: "btn btn-outline-success my-2 my-sm-0", type: "submit" },
-            "Search"
-          )
-        )
-      )
-    ),
-    _react2.default.createElement(
-      "div",
-      { className: "modal fade", id: "exampleModal", tabIndex: "-1", role: "dialog", "aria-labelledby": "exampleModalLabel", "aria-hidden": "true" },
-      _react2.default.createElement(
-        "div",
-        { className: "modal-dialog", role: "document" },
-        _react2.default.createElement(
-          "div",
-          { className: "modal-content" },
-          _react2.default.createElement(
-            "div",
-            { className: "modal-header" },
-            _react2.default.createElement(
-              "h5",
-              { className: "modal-title", id: "exampleModalLabel" },
-              "New message"
-            ),
-            _react2.default.createElement(
-              "button",
-              { type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close" },
-              _react2.default.createElement(
-                "span",
-                { "aria-hidden": "true" },
-                "\xD7"
-              )
-            )
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "modal-body" },
-            _react2.default.createElement(
-              "form",
-              null,
-              _react2.default.createElement(
-                "div",
-                { className: "form-group" },
-                _react2.default.createElement(
-                  "label",
-                  { htmlFor: "recipient-name", className: "col-form-label" },
-                  "Recipient:"
-                ),
-                _react2.default.createElement("input", { type: "text", className: "form-control", id: "recipient-name" })
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "form-group" },
-                _react2.default.createElement(
-                  "label",
-                  { htmlFor: "message-text", className: "col-form-label" },
-                  "Message:"
-                ),
-                _react2.default.createElement("textarea", { className: "form-control", id: "message-text" })
-              )
-            )
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "modal-footer" },
-            _react2.default.createElement(
-              "button",
-              { type: "button", className: "btn btn-secondary", "data-dismiss": "modal" },
-              "Close"
-            ),
-            _react2.default.createElement(
-              "button",
-              { type: "button", className: "btn btn-primary" },
-              "Send message"
-            )
-          )
-        )
-      )
-    )
-  );
-};
+var NavLogInAndSignUp = function (_Component) {
+	_inherits(NavLogInAndSignUp, _Component);
 
-var NavContainer = function (_Component) {
-  _inherits(NavContainer, _Component);
+	function NavLogInAndSignUp() {
+		_classCallCheck(this, NavLogInAndSignUp);
 
-  function NavContainer() {
-    _classCallCheck(this, NavContainer);
+		return _possibleConstructorReturn(this, (NavLogInAndSignUp.__proto__ || Object.getPrototypeOf(NavLogInAndSignUp)).apply(this, arguments));
+	}
 
-    return _possibleConstructorReturn(this, (NavContainer.__proto__ || Object.getPrototypeOf(NavContainer)).apply(this, arguments));
-  }
+	_createClass(NavLogInAndSignUp, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"form",
+				null,
+				_react2.default.createElement(
+					"div",
+					{ className: "form-group" },
+					_react2.default.createElement(
+						"label",
+						{ htmlFor: "recipient-name", className: "col-form-label" },
+						"Email:"
+					),
+					_react2.default.createElement("input", { type: "text", className: "form-control", id: "recipient-name" })
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "form-group" },
+					_react2.default.createElement(
+						"label",
+						{ htmlFor: "message-text", className: "col-form-label" },
+						"Password:"
+					),
+					_react2.default.createElement("input", { type: "text", className: "form-control", id: "recipient-name" })
+				)
+			);
+		}
+	}]);
 
-  _createClass(NavContainer, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(NavigateBar, null);
-    }
-  }]);
+	return NavLogInAndSignUp;
+}(_react.Component);
 
-  return NavContainer;
+var NavigateBar = function (_Component2) {
+	_inherits(NavigateBar, _Component2);
+
+	function NavigateBar() {
+		_classCallCheck(this, NavigateBar);
+
+		return _possibleConstructorReturn(this, (NavigateBar.__proto__ || Object.getPrototypeOf(NavigateBar)).apply(this, arguments));
+	}
+
+	_createClass(NavigateBar, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"div",
+				null,
+				_react2.default.createElement(
+					"nav",
+					{ className: "navbar navbar-expand-md navbar-dark bg-dark fixed-top" },
+					_react2.default.createElement(
+						"a",
+						{ className: "navbar-brand", href: "#" },
+						"4 Square"
+					),
+					_react2.default.createElement(
+						"button",
+						{ className: "navbar-toggler", type: "button", "data-toggle": "collapse", "data-target": "#navbarsExampleDefault", "aria-controls": "navbarsExampleDefault", "aria-expanded": "false", "aria-label": "Toggle navigation" },
+						_react2.default.createElement("span", { className: "navbar-toggler-icon" })
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "collapse navbar-collapse", id: "navbarsExampleDefault" },
+						_react2.default.createElement(
+							"ul",
+							{ className: "navbar-nav mr-auto" },
+							_react2.default.createElement(
+								"li",
+								{ className: "nav-item active" },
+								_react2.default.createElement(
+									"a",
+									{ className: "nav-link", "data-toggle": "modal", "data-target": "#loginOrSignUp", href: "#" },
+									"Log In / Sign In",
+									_react2.default.createElement(
+										"span",
+										{ className: "sr-only" },
+										"(current)"
+									)
+								)
+							)
+						),
+						_react2.default.createElement(
+							"form",
+							{ className: "form-inline my-2 my-lg-0" },
+							_react2.default.createElement("input", { className: "form-control mr-sm-2", type: "text", placeholder: "Search", "aria-label": "Search" }),
+							_react2.default.createElement(
+								"button",
+								{ className: "btn btn-outline-success my-2 my-sm-0", type: "submit" },
+								"Search"
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "modal fade", id: "loginOrSignUp", tabIndex: "-1", role: "dialog", "aria-labelledby": "exampleModalLabel", "aria-hidden": "true" },
+					_react2.default.createElement(
+						"div",
+						{ className: "modal-dialog", role: "document" },
+						_react2.default.createElement(
+							"div",
+							{ className: "modal-content" },
+							_react2.default.createElement(
+								"div",
+								{ className: "modal-header" },
+								_react2.default.createElement(
+									"h5",
+									{ className: "modal-title", id: "exampleModalLabel" },
+									"Log In / Sign Up"
+								),
+								_react2.default.createElement(
+									"button",
+									{ type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close" },
+									_react2.default.createElement(
+										"span",
+										{ "aria-hidden": "true" },
+										"\xD7"
+									)
+								)
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "modal-body" },
+								_react2.default.createElement(
+									"ul",
+									{ className: "nav nav-tabs", role: "tablist" },
+									_react2.default.createElement(
+										"li",
+										{ className: "nav-item" },
+										_react2.default.createElement(
+											"a",
+											{ className: "nav-link active", "data-toggle": "tab", href: "#home", role: "tab" },
+											"Sign In"
+										)
+									),
+									_react2.default.createElement(
+										"li",
+										{ className: "nav-item" },
+										_react2.default.createElement(
+											"a",
+											{ className: "nav-link", "data-toggle": "tab", href: "#profile", role: "tab" },
+											"Sign Up"
+										)
+									)
+								),
+								_react2.default.createElement(
+									"div",
+									{ className: "tab-content" },
+									_react2.default.createElement(
+										"div",
+										{ className: "tab-pane active", id: "home", role: "tabpanel" },
+										_react2.default.createElement(NavLogInAndSignUp, null)
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "tab-pane", id: "profile", role: "tabpanel" },
+										_react2.default.createElement(NavLogInAndSignUp, null)
+									)
+								)
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "modal-footer" },
+								_react2.default.createElement(
+									"button",
+									{ type: "button", className: "btn btn-outline-secondary", "data-dismiss": "modal" },
+									"Close"
+								),
+								_react2.default.createElement(
+									"button",
+									{ type: "button", className: "btn btn-outline-primary" },
+									"Submit"
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return NavigateBar;
+}(_react.Component);
+
+var NavContainer = function (_Component3) {
+	_inherits(NavContainer, _Component3);
+
+	function NavContainer() {
+		_classCallCheck(this, NavContainer);
+
+		return _possibleConstructorReturn(this, (NavContainer.__proto__ || Object.getPrototypeOf(NavContainer)).apply(this, arguments));
+	}
+
+	_createClass(NavContainer, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(NavigateBar, null);
+		}
+	}]);
+
+	return NavContainer;
 }(_react.Component);
 
 exports.default = NavContainer;
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import ReactDOM from 'react-dom';
-import { NavContainer, Venues } from './components'
+import { NavContainer, Venues } from './components/containers'
 
 class App extends Component {
 
