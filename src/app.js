@@ -1,20 +1,24 @@
 import React,{ Component } from 'react';
 import ReactDOM from 'react-dom';
-import { NavContainer, Venues } from './components/containers'
+import { NavContainer } from './components/containers'
+import { Venues } from './components/views'
+
+import store from './stores';
+import { Provider } from 'react-redux';
+require('./index.css');
 
 class App extends Component {
 
 	render(){
 		return(
-			<div>
-				<NavContainer />
-				React app
-				<Venues />
-			</div>
+			<Provider store={store.initialize()}>
+				<div>
+					<NavContainer />
+					<Venues />
+				</div>
+			</Provider>
 		)
 	}
-
-
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

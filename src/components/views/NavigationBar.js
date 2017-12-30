@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ErrorForms from './ErrorForms';
+import {InputSearch} from '../containers';
 
 class NavLogInAndSignUp extends Component {
 
@@ -12,8 +12,10 @@ class NavLogInAndSignUp extends Component {
 				password: ""
 			},
 			emailValid: null,
-			passwordValid: false,
-			formValid: false
+			passwordValid: null,
+			formValid: false,
+			formStyle: "form-control",
+			passwordStyle: "form-control"
 		}
 	}
 
@@ -35,27 +37,34 @@ class NavLogInAndSignUp extends Component {
 	}
 
 	handleInputValidator = (fieldName, value) => {
-		let emailValid = this.state.emailValid
+		let emailValid = this.state.emailValid;
+		let passwordValid = this.state.passwordValid;
 		switch(fieldName) {
 			case 'email':
 				console.log('email', value);
 				 emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+				 emailValid === null ? this.setState({ emailValid: false, formStyle: 'form-control is-invalid'}) :  this.setState({ emailValid: true, formStyle: 'form-control' });
+				 break;
+			case 'password':
+				console.log('password', value);
 
+				if (value.length !== 8) {
+					this.setState(() => {
+						return {
+							passwordValid: false,
+							formStyle: 'form-control is-invalid'
+						}
+					})
+				}
 
-				 emailValid === null ? this.setState({ emailValid: false}) :  this.setState({ emailValid: true });
+				if (value.length > 8) {
+					let strongRegex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+					passwordValid = value.match(strongRegex);
+					passwordValid === null ? this.setState({passwordValid: false, passwordStyle: 'form-control is-invalid'}) : this.setState({ passwordValid: true, formStyle: 'form-control' });
+				}
 
-				 // if (emailValid === null ) {
-					//  this.setState({
-					// 	 emailValid: false
-					//  });
-				 // }
-         //
-				 // if (emailValid !== null) {
-					//  this.setState({
-					// 	 emailValid: true
-					//  });
-				 // }
-
+				break;
+			default:
 				break;
 		}
 
@@ -64,28 +73,39 @@ class NavLogInAndSignUp extends Component {
 
   render() {
 
-		const emailValidChecker = this.state.emailValid;
-		let errors = '';
-		if(emailValidChecker === null) {
-			errors = '';
-		} else if (emailValidChecker === false) {
-			const spanStyle = {
-				fontSize: 11 + 'px',
-				color: "red"
-			}
-			errors = <span style={spanStyle}>Enter a valid email</span>
+		const spanStyle = {
+			fontSize: 10 + 'px',
+			color: "red"
 		}
+
+		const emailValidChecker = this.state.emailValid;
+		let emailErrors = '';
+		if(emailValidChecker === null) {
+			emailErrors = '';
+		} else if (emailValidChecker === false) {
+			emailErrors = <span style={spanStyle}>Enter a valid email</span>
+		}
+
+		const passwordValidChecker = this.state.passwordValid;
+		let passwordErrors = '';
+		if(passwordValidChecker === null) {
+			passwordErrors = '';
+		} else if (passwordValidChecker === false) {
+			passwordErrors = <span style={spanStyle}>Password must have 8 characters. It has to contain 1 letter, 1 uppercase, and 1 special symbol</span>
+		}
+
 
     return (
 				<form>
 		      <div className="form-group">
 		        <label htmlFor="recipient-name" className="col-form-label">Email:</label>
-		        <input type="text" className="form-control" id="email" name='email'  onChange={this.handleInput}/>
-						{errors}
+		        <input type="text" className={this.state.formStyle} id="email" name='email'  onChange={this.handleInput}/>
+						{emailErrors}
 		      </div>
 		      <div className="form-group">
 		        <label htmlFor="message-text" className="col-form-label">Password:</label>
-		        <input type="text" className="form-control" id="password" name='password' onChange={this.handleInput}/>
+		        <input type="text" className={this.state.formStyle} id="password" name='password' onChange={this.handleInput}/>
+						{passwordErrors}
 		      </div>
 		      <div className="modal-footer">
 		        <button type="button" className="btn btn-outline-secondary" data-dismiss="modal">Close</button>
@@ -116,10 +136,7 @@ class NavigationBar extends Component {
 		              </a>
 		            </li>
 		          </ul>
-		          <form className="form-inline my-2 my-lg-0">
-		            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
-		            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		          </form>
+		         <InputSearch />
 		        </div>
 		      </nav>
 

@@ -1,0 +1,16 @@
+#left-div {
+  height: 100vh;
+  overflow: auto;
+}
+
+#right-div {
+  overflow: auto;
+}
+
+#wrapper {
+  width: 100%;
+}
+
+words {
+  font-size: 30px;
+}

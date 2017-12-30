@@ -1,7 +1,7 @@
 import NavContainer from './NavContainer';
-import Venues from './Venues';
+import InputSearch from './InputSearch';
 
 export {
 	NavContainer,
-	Venues
+	InputSearch
 }
