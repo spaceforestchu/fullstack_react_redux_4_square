@@ -4370,7 +4370,7 @@ exports.InputSearch = _InputSearch2.default;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.NavigationBar = exports.Venues = undefined;
+exports.Venue = exports.NavigationBar = exports.Venues = undefined;
 
 var _NavigationBar = __webpack_require__(200);
 
@@ -4380,10 +4380,15 @@ var _Venues = __webpack_require__(201);
 
 var _Venues2 = _interopRequireDefault(_Venues);
 
+var _Venue = __webpack_require__(478);
+
+var _Venue2 = _interopRequireDefault(_Venue);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Venues = _Venues2.default;
 exports.NavigationBar = _NavigationBar2.default;
+exports.Venue = _Venue2.default;
 
 /***/ }),
 /* 110 */
@@ -8669,6 +8674,8 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _layout = __webpack_require__(197);
 
+var _views = __webpack_require__(109);
+
 var _stores = __webpack_require__(443);
 
 var _stores2 = _interopRequireDefault(_stores);
@@ -8708,7 +8715,12 @@ var App = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						null,
-						_react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _layout.Main })
+						_react2.default.createElement(
+							_reactRouterDom.Switch,
+							null,
+							_react2.default.createElement(_reactRouterDom.Route, { path: '/:id', componnet: _views.Venue }),
+							_react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _layout.Main })
+						)
 					)
 				)
 			);
@@ -26424,6 +26436,8 @@ var _VenuesMap = __webpack_require__(226);
 
 var _VenuesMap2 = _interopRequireDefault(_VenuesMap);
 
+var _reactRouterDom = __webpack_require__(447);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26464,9 +26478,13 @@ var Venues = function (_Component) {
 									'div',
 									{ style: { padding: 12, marginBottom: 12, backgroundColor: '#f9f9f9' } },
 									_react2.default.createElement(
-										'h4',
-										{ style: { marginBottom: 0 } },
-										venue.name
+										_reactRouterDom.Link,
+										{ style: { wordWrap: "break-word" }, to: venue.id },
+										_react2.default.createElement(
+											'h4',
+											{ style: { marginBottom: 0 } },
+											venue.name
+										)
 									),
 									_react2.default.createElement(
 										'span',
@@ -26476,9 +26494,13 @@ var Venues = function (_Component) {
 									' ',
 									_react2.default.createElement('br', null),
 									_react2.default.createElement(
-										'a',
-										{ href: venue.url },
-										venue.url
+										'p',
+										{ style: { wordWrap: "break-word" } },
+										_react2.default.createElement(
+											'a',
+											{ href: venue.url },
+											venue.url
+										)
 									)
 								)
 							);
@@ -28303,23 +28325,16 @@ var VenuesMap = function (_Component) {
 				return _react2.default.createElement(
 					_reactGoogleMaps.GoogleMap,
 					{
-						defaultCenter: { lat: 40.7589, lng: -73.9851 },
-						center: { lat: 40.7589, lng: -73.9851 },
-						zoom: 15
+						defaultZoom: 14,
+						defaultCenter: { lat: 40.7589, lng: -73.9851 }
 					},
 					markers
 				);
 			});
 
 			var googleMap = _react2.default.createElement(MapWithAMarker, {
-				containerElement: _react2.default.createElement('div', { style: {
-
-						height: '410vh'
-					} }),
-				mapElement: _react2.default.createElement('div', { style: {
-
-						height: '410vh'
-					} })
+				containerElement: _react2.default.createElement('div', { style: { height: '100vh' } }),
+				mapElement: _react2.default.createElement('div', { style: { height: '100vh' } })
 			});
 
 			return _react2.default.createElement(
@@ -44454,6 +44469,57 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 478 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Venue = function (_Component) {
+	_inherits(Venue, _Component);
+
+	function Venue() {
+		_classCallCheck(this, Venue);
+
+		return _possibleConstructorReturn(this, (Venue.__proto__ || Object.getPrototypeOf(Venue)).apply(this, arguments));
+	}
+
+	_createClass(Venue, [{
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				'This is Venue'
+			);
+		}
+	}]);
+
+	return Venue;
+}(_react.Component);
+
+exports.default = Venue;
 
 /***/ })
 /******/ ]);

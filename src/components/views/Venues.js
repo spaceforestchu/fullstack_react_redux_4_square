@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import actions from '../../actions';
 import VenuesMap from './VenuesMap';
+import { Link } from 'react-router-dom';
 
 class Venues extends Component {
 	render(){
@@ -17,9 +18,9 @@ class Venues extends Component {
 								return (
 									<li key={venue.id}>
 										<div style={{padding:12, marginBottom: 12, backgroundColor: '#f9f9f9'}}>
-											<h4 style={{marginBottom:0}}>{venue.name}</h4>
+											<Link style={{wordWrap: "break-word"}} to={venue.id}><h4 style={{marginBottom:0}}>{venue.name}</h4></Link>
 											<span>{venue.location.address}</span> <br />
-											<a href={venue.url}>{venue.url}</a>
+											<p style={{wordWrap: "break-word"}}><a  href={venue.url}>{venue.url}</a></p>
 										</div>
 									</li>
 								)

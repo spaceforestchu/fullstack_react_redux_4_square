@@ -23,9 +23,8 @@ class VenuesMap extends Component {
 
 	const MapWithAMarker = withGoogleMap(props =>
   <GoogleMap
-		defaultCenter={{ lat: 40.7589, lng: -73.9851 }}
-		center={{ lat: 40.7589, lng: -73.9851 }}
-		zoom={15}
+    defaultZoom={14}
+    defaultCenter={{ lat: 40.7589, lng: -73.9851 }}
   >
   	{markers}
 
@@ -33,14 +32,8 @@ class VenuesMap extends Component {
 );
 
 		const googleMap = 	<MapWithAMarker
-			containerElement={<div style={{
-
-													height: `410vh`
-			}} />}
-			mapElement={<div style={{
-
-												height: `410vh`
-			 }} />}
+			containerElement={<div style={{ height: `100vh` }} />}
+			mapElement={<div style={{ height: `100vh` }} />}
 		/>
 
     return (

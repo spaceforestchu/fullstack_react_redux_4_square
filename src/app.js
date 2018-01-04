@@ -1,12 +1,12 @@
 import React,{ Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Main } from './components/layout'
-
+import { Venue } from './components/views'
 import store from './stores';
 import { Provider } from 'react-redux';
 require('./index.css');
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 class App extends Component {
@@ -16,7 +16,10 @@ class App extends Component {
 			<Provider store={store.initialize()}>
 				<BrowserRouter>
 					<div>
-						<Route path='/' component={Main}/>
+						<Switch>
+							<Route path='/:id' componnet={Venue} />
+							<Route path='/'  component={Main}/>
+						</Switch>
 					</div>
 				</BrowserRouter>
 			</Provider>
