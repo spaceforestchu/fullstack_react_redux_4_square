@@ -15,10 +15,20 @@ class Venues extends Component {
 					<ol>
 						{
 							venues.map( (venue) => {
+
+								let icon;
+								if (venue.categories[0] === undefined) {
+									icon = '';
+								} else {
+									icon = venue.categories[0].icon.prefix + "bg_88" + venue.categories[0].icon.suffix;
+								}
+
+
 								return (
 									<li key={venue.id}>
 										<div style={{padding:12, marginBottom: 12, backgroundColor: '#f9f9f9'}}>
-											<Link style={{wordWrap: "break-word"}} to={venue.id}><h4 style={{marginBottom:0}}>{venue.name}</h4></Link>
+											<img src={`${icon}`}/>
+											<Link style={{wordWrap: "break-word"}} to={venue.id} onClick={() => this.props.fetchVenue(venue.id)}><h4 style={{marginBottom:0}}>{venue.name}</h4></Link>
 											<span>{venue.location.address}</span> <br />
 											<p style={{wordWrap: "break-word"}}><a  href={venue.url}>{venue.url}</a></p>
 										</div>
@@ -42,4 +52,11 @@ const stateToProps = (state) => {
 	}
 }
 
-export default connect(stateToProps)(Venues);
+const dispatchToProps = (dispatch) => {
+	return {
+		venuesReceived: (venues) => dispatch(actions.venuesReceived(venues)),
+		fetchVenue: (id) => dispatch(actions.fetchVenue(id))
+	}
+}
+
+export default connect(stateToProps, dispatchToProps)(Venues);

@@ -18,18 +18,17 @@ class InputSearch extends Component {
 	handlSearchVenues = (event) => {
 		event.preventDefault();
 
-		axios.get('https://api.foursquare.com/v2/venues/search', {
+		axios.get('https://api.foursquare.com/v2/venues/explore', {
 			params: {
-				v: '20140806',
-				near: this.state.search.zipCode,
 				client_id: 'PHQ4BAMKWAOOL3Z43BWDQL0MHJG4QUCV4OEEZAELEKNTO4K1',
 				client_secret: 'T4JTOW5HBIOPC3L3J14TBQNDPOMS25OHPF5WH5M2XLJNXJXM',
-				query: this.state.search.title || null
+				near: this.state.search.zipCode,
+				query: this.state.search.title || null,
+				v: '20180105',
 			}
 		})
 		.then((response) => {
 			const venues = response.data.response;
-
 			this.props.venuesReceived(venues);
  		})
  		.catch((error) => {

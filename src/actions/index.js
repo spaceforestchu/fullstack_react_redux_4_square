@@ -6,5 +6,11 @@ export default {
 			type: constants.VENUES_RECEIVED,
 			venues: venues
 		}
+	},
+	fetchVenue: (id) => {
+		return {
+			type: constants.FETCH_VENUE,
+			id: id
+		}
 	}
 }

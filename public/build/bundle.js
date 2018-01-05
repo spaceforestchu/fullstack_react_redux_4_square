@@ -5221,6 +5221,12 @@ exports.default = {
 			type: _constants2.default.VENUES_RECEIVED,
 			venues: venues
 		};
+	},
+	fetchVenue: function fetchVenue(id) {
+		return {
+			type: _constants2.default.FETCH_VENUE,
+			id: id
+		};
 	}
 };
 
@@ -5235,7 +5241,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.default = {
-	VENUES_RECEIVED: 'VENUES_RECEIVED'
+	VENUES_RECEIVED: 'VENUES_RECEIVED',
+	FETCH_VENUE: 'FETCH_VENUE'
 };
 
 /***/ }),
@@ -8718,7 +8725,7 @@ var App = function (_Component) {
 						_react2.default.createElement(
 							_reactRouterDom.Switch,
 							null,
-							_react2.default.createElement(_reactRouterDom.Route, { path: '/:id', componnet: _views.Venue }),
+							_react2.default.createElement(_reactRouterDom.Route, { path: '/:id', component: _views.Venue, exact: true }),
 							_react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _layout.Main })
 						)
 					)
@@ -26458,6 +26465,7 @@ var Venues = function (_Component) {
 	_createClass(Venues, [{
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
 
 			var venues = this.props.venues || [];
 
@@ -26471,15 +26479,26 @@ var Venues = function (_Component) {
 						'ol',
 						null,
 						venues.map(function (venue) {
+
+							var icon = void 0;
+							if (venue.categories[0] === undefined) {
+								icon = '';
+							} else {
+								icon = venue.categories[0].icon.prefix + "bg_88" + venue.categories[0].icon.suffix;
+							}
+
 							return _react2.default.createElement(
 								'li',
 								{ key: venue.id },
 								_react2.default.createElement(
 									'div',
 									{ style: { padding: 12, marginBottom: 12, backgroundColor: '#f9f9f9' } },
+									_react2.default.createElement('img', { src: '' + icon }),
 									_react2.default.createElement(
 										_reactRouterDom.Link,
-										{ style: { wordWrap: "break-word" }, to: venue.id },
+										{ style: { wordWrap: "break-word" }, to: venue.id, onClick: function onClick() {
+												return _this2.props.fetchVenue(venue.id);
+											} },
 										_react2.default.createElement(
 											'h4',
 											{ style: { marginBottom: 0 } },
@@ -26525,7 +26544,18 @@ var stateToProps = function stateToProps(state) {
 	};
 };
 
-exports.default = (0, _reactRedux.connect)(stateToProps)(Venues);
+var dispatchToProps = function dispatchToProps(dispatch) {
+	return {
+		venuesReceived: function venuesReceived(venues) {
+			return dispatch(_actions2.default.venuesReceived(venues));
+		},
+		fetchVenue: function fetchVenue(id) {
+			return dispatch(_actions2.default.fetchVenue(id));
+		}
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Venues);
 
 /***/ }),
 /* 202 */
@@ -39757,17 +39787,16 @@ var InputSearch = function (_Component) {
 		_this.handlSearchVenues = function (event) {
 			event.preventDefault();
 
-			_axios2.default.get('https://api.foursquare.com/v2/venues/search', {
+			_axios2.default.get('https://api.foursquare.com/v2/venues/explore', {
 				params: {
-					v: '20140806',
-					near: _this.state.search.zipCode,
 					client_id: 'PHQ4BAMKWAOOL3Z43BWDQL0MHJG4QUCV4OEEZAELEKNTO4K1',
 					client_secret: 'T4JTOW5HBIOPC3L3J14TBQNDPOMS25OHPF5WH5M2XLJNXJXM',
-					query: _this.state.search.title || null
+					near: _this.state.search.zipCode,
+					query: _this.state.search.title || null,
+					v: '20180105'
 				}
 			}).then(function (response) {
 				var venues = response.data.response;
-
 				_this.props.venuesReceived(venues);
 			}).catch(function (error) {
 				console.log(error);
@@ -40833,20 +40862,37 @@ var _constants2 = _interopRequireDefault(_constants);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var initialState = {
-	venues: null
+	venues: null,
+	venue: null
 };
 
 exports.default = function () {
 	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	var action = arguments[1];
 
-
+	var updated = Object.assign({}, state);
 	switch (action.type) {
 
 		case _constants2.default.VENUES_RECEIVED:
-			console.log('VENUES_RECEIVED: ', action);
-			var updated = Object.assign({}, state);
-			updated['venues'] = action.venues.venues;
+			console.log('VENUES_RECEIVED: ', action.venues.groups[0].items[0].venue);
+			return;
+			//updated['venues'] = action.venues.groups.items;
+			//updated['venues'] = action.venues.venues;
+			console.log(JSON.stringify(updated));
+			return updated;
+		case _constants2.default.FETCH_VENUE:
+
+			var venueID = action.id;
+			var venues = updated.venues;
+			var foundVenue = void 0;
+			venues.filter(function (venue, index) {
+				if (venue.id === venueID) {
+					foundVenue = venue;
+				}
+			});
+
+			updated['venue'] = foundVenue;
+
 			return updated;
 		default:
 			return state;
@@ -44487,6 +44533,8 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(42);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44507,7 +44555,7 @@ var Venue = function (_Component) {
 	_createClass(Venue, [{
 		key: 'render',
 		value: function render() {
-
+			//const {} = this.props.venue;
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -44519,7 +44567,13 @@ var Venue = function (_Component) {
 	return Venue;
 }(_react.Component);
 
-exports.default = Venue;
+var stateToProps = function stateToProps(state) {
+	return {
+		venue: state.venue.venue
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(stateToProps)(Venue);
 
 /***/ })
 /******/ ]);
