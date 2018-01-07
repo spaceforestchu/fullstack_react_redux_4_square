@@ -26474,51 +26474,102 @@ var Venues = function (_Component) {
 				{ className: 'row', style: { width: 100 + '%' } },
 				_react2.default.createElement(
 					'div',
-					{ className: 'col-md-3 col-md-offset-9', style: { overflowY: 'scroll', height: 100 + 'vh' } },
+					{ className: 'col-md-4 col-md-offset-8', style: { overflowY: 'scroll', height: 100 + 'vh' } },
 					_react2.default.createElement(
 						'ol',
 						null,
-						venues.map(function (venue) {
+						venues.map(function (location, index) {
 
-							var icon = void 0;
-							if (venue.categories[0] === undefined) {
-								icon = '';
-							} else {
-								icon = venue.categories[0].icon.prefix + "bg_88" + venue.categories[0].icon.suffix;
-							}
-
+							var venue = location.venue;
+							console.log(venue);
+							var photo = venue.photos;
+							var venuePhotoPrefix = photo.groups[0].items[0].prefix || "";
+							var venuePhotoSuffix = photo.groups[0].items[0].suffix || "";
+							var venuePhoto = venuePhotoPrefix + '128x128' + venuePhotoSuffix;
+							var title = venue.name;
+							var venueRating = venue.rating;
+							var boroughsAndCity = venue.location.formattedAddress[1].slice(0, 13);
+							var venueIndex = index + 1;
+							var venueAddress = venue.location.address;
+							var formattedPhone = venue.contact.formattedPhone ? venue.contact.formattedPhone : '';
+							var url = venue.url;
 							return _react2.default.createElement(
 								'li',
-								{ key: venue.id },
+								{ style: { listStyleType: 'none' }, key: venue.id },
 								_react2.default.createElement(
 									'div',
-									{ style: { padding: 12, marginBottom: 12, backgroundColor: '#f9f9f9' } },
-									_react2.default.createElement('img', { src: '' + icon }),
+									{ style: { padding: 1, marginBottom: 12, backgroundColor: '#f9f9f9' } },
 									_react2.default.createElement(
-										_reactRouterDom.Link,
-										{ style: { wordWrap: "break-word" }, to: venue.id, onClick: function onClick() {
-												return _this2.props.fetchVenue(venue.id);
-											} },
+										'div',
+										{ className: 'container', style: { padding: 0 } },
 										_react2.default.createElement(
-											'h4',
-											{ style: { marginBottom: 0 } },
-											venue.name
-										)
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										venue.location.address
-									),
-									' ',
-									_react2.default.createElement('br', null),
-									_react2.default.createElement(
-										'p',
-										{ style: { wordWrap: "break-word" } },
-										_react2.default.createElement(
-											'a',
-											{ href: venue.url },
-											venue.url
+											'div',
+											{ className: 'row' },
+											_react2.default.createElement(
+												'div',
+												{ className: 'col-sm-4' },
+												_react2.default.createElement('img', { style: { padding: 5 }, src: '' + venuePhoto })
+											),
+											_react2.default.createElement(
+												'div',
+												{ className: 'col-sm-8' },
+												_react2.default.createElement(
+													'span',
+													{ style: { marginRight: 10, color: '#aeb4b6' } },
+													venueIndex,
+													'.'
+												),
+												_react2.default.createElement(
+													_reactRouterDom.Link,
+													{ to: venue.id, onClick: function onClick() {
+															return _this2.props.fetchVenue(venue.id);
+														} },
+													_react2.default.createElement(
+														'h5',
+														{ style: { paddingTop: 2, display: 'inline-block', wordWrap: "break-word" } },
+														title
+													)
+												),
+												_react2.default.createElement(
+													'div',
+													null,
+													_react2.default.createElement(
+														'h5',
+														{ style: { height: 15 } },
+														venueAddress
+													),
+													_react2.default.createElement(
+														'span',
+														null,
+														boroughsAndCity
+													),
+													_react2.default.createElement('br', null),
+													_react2.default.createElement(
+														'a',
+														{ href: 'tel:' + formattedPhone },
+														_react2.default.createElement(
+															'span',
+															null,
+															formattedPhone
+														)
+													),
+													_react2.default.createElement(
+														'div',
+														{ style: { backgroundColor: '#00B551', borderRadius: 10, textAlign: "center", float: 'right', marginRight: 5, padding: 6, marginTop: 10 } },
+														_react2.default.createElement(
+															'span',
+															{ style: { color: 'white', fontSize: 15 } },
+															venueRating
+														)
+													),
+													_react2.default.createElement('br', null),
+													_react2.default.createElement(
+														'a',
+														{ style: { wordWrap: "break-word", fontSize: 11 }, href: url },
+														url
+													)
+												)
+											)
 										)
 									)
 								)
@@ -26528,7 +26579,7 @@ var Venues = function (_Component) {
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'col-md-9', style: { overflowY: 'scroll', height: 100 + 'vh' } },
+					{ className: 'col-md-8', style: { height: 100 + 'vh', width: 100 + 'vh' } },
 					_react2.default.createElement(_VenuesMap2.default, null)
 				)
 			);
@@ -28340,16 +28391,18 @@ var VenuesMap = function (_Component) {
 
 			var markers = void 0;
 
-			if (this.props.venues !== null) {
-				markers = this.props.venues.map(function (venue, i) {
-					return _react2.default.createElement(_reactGoogleMaps.Marker, {
-						key: i,
-						position: { lat: venue.location.lat, lng: venue.location.lng }
-					});
-				});
-			} else {
-				markers = _react2.default.createElement(_reactGoogleMaps.Marker, { position: { lat: 40.7589, lng: -73.9851 } });
-			}
+			// if (this.props.venues !== null) {
+			// 	markers = this.props.venues.map((venue, i) => {
+			// 		return (
+			// 			<Marker
+			// 				key={i}
+			// 				position={{ lat: venue.location.lat, lng: venue.location.lng}}
+			// 			/>
+			// 		)
+			// 	})
+			// } else {
+			// 	markers = <Marker position={{ lat: 40.7589, lng:-73.9851}}/>
+			// }
 
 			var MapWithAMarker = (0, _reactGoogleMaps.withGoogleMap)(function (props) {
 				return _react2.default.createElement(
@@ -39793,10 +39846,11 @@ var InputSearch = function (_Component) {
 					client_secret: 'T4JTOW5HBIOPC3L3J14TBQNDPOMS25OHPF5WH5M2XLJNXJXM',
 					near: _this.state.search.zipCode,
 					query: _this.state.search.title || null,
-					v: '20180105'
+					v: '20180105',
+					venuePhotos: "1"
 				}
 			}).then(function (response) {
-				var venues = response.data.response;
+				var venues = response.data.response.groups[0].items;
 				_this.props.venuesReceived(venues);
 			}).catch(function (error) {
 				console.log(error);
@@ -40874,11 +40928,10 @@ exports.default = function () {
 	switch (action.type) {
 
 		case _constants2.default.VENUES_RECEIVED:
-			console.log('VENUES_RECEIVED: ', action.venues.groups[0].items[0].venue);
-			return;
-			//updated['venues'] = action.venues.groups.items;
-			//updated['venues'] = action.venues.venues;
-			console.log(JSON.stringify(updated));
+			console.log('VENUES_RECEIVED: ', action);
+
+			updated['venues'] = action.venues;
+
 			return updated;
 		case _constants2.default.FETCH_VENUE:
 

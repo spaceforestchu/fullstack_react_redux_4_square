@@ -7,19 +7,19 @@ class VenuesMap extends Component {
   render() {
 
 		let markers;
-
-		if (this.props.venues !== null) {
-			markers = this.props.venues.map((venue, i) => {
-				return (
-					<Marker
-						key={i}
-						position={{ lat: venue.location.lat, lng: venue.location.lng}}
-					/>
-				)
-			})
-		} else {
-			markers = <Marker position={{ lat: 40.7589, lng:-73.9851}}/>
-		}
+	
+		// if (this.props.venues !== null) {
+		// 	markers = this.props.venues.map((venue, i) => {
+		// 		return (
+		// 			<Marker
+		// 				key={i}
+		// 				position={{ lat: venue.location.lat, lng: venue.location.lng}}
+		// 			/>
+		// 		)
+		// 	})
+		// } else {
+		// 	markers = <Marker position={{ lat: 40.7589, lng:-73.9851}}/>
+		// }
 
 	const MapWithAMarker = withGoogleMap(props =>
   <GoogleMap

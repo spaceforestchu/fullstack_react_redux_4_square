@@ -25,10 +25,11 @@ class InputSearch extends Component {
 				near: this.state.search.zipCode,
 				query: this.state.search.title || null,
 				v: '20180105',
+				venuePhotos: "1"
 			}
 		})
 		.then((response) => {
-			const venues = response.data.response;
+			const venues = response.data.response.groups[0].items;
 			this.props.venuesReceived(venues);
  		})
  		.catch((error) => {

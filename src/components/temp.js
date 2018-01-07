@@ -1,88 +1,101 @@
-/* import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import actions from '../../actions';
+import VenuesMap from './VenuesMap';
+import { Link } from 'react-router-dom';
 
-const NavigateBar = (props) => {
+class Venues extends Component {
+	render(){
 
-  return (
-			<div>
-		    <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		      <a className="navbar-brand" href="#">4 Square</a>
-		      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-		        <span className="navbar-toggler-icon"></span>
-		      </button>
+		const venues = this.props.venues || [];
 
-		      <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-		        <ul className="navbar-nav mr-auto">
-		          <li className="nav-item active">
-		            <a className="nav-link" data-toggle='modal' data-target="#loginOrSignUp" href="#">Log In / Sign In
-		              <span className="sr-only">(current)</span>
-		            </a>
-		          </li>
-		        </ul>
-		        <form className="form-inline my-2 my-lg-0">
-		          <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
-		          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		        </form>
-		      </div>
-		    </nav>
+		return (
+			<div className='row' style={{width: 100 + '%'}}>
+				<div className='col-md-3 col-md-offset-9' style={{overflowY: 'scroll', height: 100 +'vh'}}>
+					<ol>
+						{
+							venues.map( (venue) => {
 
-				<div className="modal fade" id="loginOrSignUp" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div className="modal-dialog" role="document">
-						<div className="modal-content">
-							<div className="modal-header">
-								<h5 className="modal-title" id="exampleModalLabel">New message</h5>
-								<button type="button" className="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div className="modal-body">
-								<form>
-									<div className="form-group">
-										<label htmlFor="recipient-name" className="col-form-label">Recipient:</label>
-										<input type="text" className="form-control" id="recipient-name"/>
-									</div>
-									<div className="form-group">
-										<label htmlFor="message-text" className="col-form-label">Message:</label>
-										<textarea className="form-control" id="message-text"></textarea>
-									</div>
-								</form>
-							</div>
-							<div className="modal-footer">
-								<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" className="btn btn-primary">Send message</button>
-							</div>
-						</div>
-					</div>
+								let icon;
+								if (venue.categories[0] === undefined) {
+									icon = '';
+								} else {
+									icon = venue.categories[0].icon.prefix + "bg_88" + venue.categories[0].icon.suffix;
+								}
+
+
+								return (
+									<li key={venue.id}>
+										<div style={{padding:12, marginBottom: 12, backgroundColor: '#f9f9f9'}}>
+											<img src={`${icon}`}/>
+											<Link style={{wordWrap: "break-word"}} to={venue.id} onClick={() => this.props.fetchVenue(venue.id)}><h4 style={{marginBottom:0}}>{venue.name}</h4></Link>
+											<span>{venue.location.address}</span> <br />
+											<p style={{wordWrap: "break-word"}}><a  href={venue.url}>{venue.url}</a></p>
+										</div>
+									</li>
+								)
+							})
+					}
+					</ol>
 				</div>
-
-	  </div>
-	)
+				<div className='col-md-9' style={{overflowY: 'scroll',  height: 100 +'vh'}}>
+					<VenuesMap />
+				</div>
+			</div>
+		)
+	}
 }
 
-class NavContainer extends Component {
-
-  render() {
-    return (<NavigateBar />)
-  }
+const stateToProps = (state) => {
+	return {
+		venues: state.venue.venues
+	}
 }
 
-export default NavContainer;
+const dispatchToProps = (dispatch) => {
+	return {
+		venuesReceived: (venues) => dispatch(actions.venuesReceived(venues)),
+		fetchVenue: (id) => dispatch(actions.fetchVenue(id))
+	}
+}
+
+export default connect(stateToProps, dispatchToProps)(Venues);
+
+======
+let icon;
+if (venue.categories[0] === undefined) {
+	icon = '';
+} else {
+	icon = venue.categories[0].icon.prefix + "bg_88" + venue.categories[0].icon.suffix;
+}
 
 
-<form>
-	<div className="form-group">
-		<label htmlFor="recipient-name" className="col-form-label">Recipient:</label>
-		<input type="text" className="form-control" id="recipient-name"/>
+return (
+	<li key={venue.id}>
+		<div style={{padding:12, marginBottom: 12, backgroundColor: '#f9f9f9'}}>
+			<img src={`${icon}`}/>
+			<Link style={{wordWrap: "break-word"}} to={venue.id} onClick={() => this.props.fetchVenue(venue.id)}><h4 style={{marginBottom:0}}>{venue.name}</h4></Link>
+			<span>{venue.location.address}</span> <br />
+			<p style={{wordWrap: "break-word"}}><a  href={venue.url}>{venue.url}</a></p>
+		</div>
+	</li>
+)
+
+=====
+<div className='container'>
+	<div className='row'>
+		<div className='col-sm-3'>
+			<div style={{backgroundColor: '#00B551', borderRadius: 35, textAlign: "center"}}>
+				<span style={{color: 'white',  fontSize: 13}}>{venueRating}</span>
+			</div>
+		</div>
+		<div className='col-xs-9'>
+			<div>
+				<span style={{display: 'inline-block',  fontSize: 11}}>{boroughsAndCity}</span>
+			</div>
+			<div>
+					{venueAddress}
+			</div>
+		</div>
 	</div>
-	<div className="form-group">
-		<label htmlFor="message-text" className="col-form-label">Message:</label>
-		<textarea className="form-control" id="message-text"></textarea>
-	</div>
-</form>
 </div>
-<div className="modal-footer">
-<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-<button type="button" className="btn btn-primary">Send message</button>
-</div>
-
-
-*/

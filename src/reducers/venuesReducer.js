@@ -10,11 +10,10 @@ export default (state=initialState, action) => {
 	switch (action.type) {
 
 		case constants.VENUES_RECEIVED:
-			console.log('VENUES_RECEIVED: ', action.venues.groups[0].items[0].venue);
-			return;
-			//updated['venues'] = action.venues.groups.items;
-			//updated['venues'] = action.venues.venues;
-			console.log(JSON.stringify(updated));
+			console.log('VENUES_RECEIVED: ', action);
+
+			updated['venues'] = action.venues;
+	
 			return updated;
 		case constants.FETCH_VENUE:
 
