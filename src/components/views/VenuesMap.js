@@ -6,28 +6,34 @@ class VenuesMap extends Component {
 
   render() {
 
+		const venues = this.props.venues;
+
+
 		let markers;
-	
-		// if (this.props.venues !== null) {
-		// 	markers = this.props.venues.map((venue, i) => {
-		// 		return (
-		// 			<Marker
-		// 				key={i}
-		// 				position={{ lat: venue.location.lat, lng: venue.location.lng}}
-		// 			/>
-		// 		)
-		// 	})
-		// } else {
-		// 	markers = <Marker position={{ lat: 40.7589, lng:-73.9851}}/>
-		// }
+		if (venues !== null) {
+
+			markers = venues.map((location, i) => {
+				const lat = location.venue.location.lat
+				const lng = location.venue.location.lng
+				const index = i + 1;
+				return (
+					<Marker
+						key={i}
+						position={{ lat: lat, lng: lng}}
+						label={index.toString()}
+					/>
+				)
+			})
+		} else {
+			markers = <Marker position={{ lat: 40.7589, lng:-73.9851}}/>
+		}
 
 	const MapWithAMarker = withGoogleMap(props =>
   <GoogleMap
-    defaultZoom={14}
+    defaultZoom={15}
     defaultCenter={{ lat: 40.7589, lng: -73.9851 }}
   >
   	{markers}
-
   </GoogleMap>
 );
 

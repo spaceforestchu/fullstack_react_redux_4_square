@@ -17,7 +17,7 @@ class Venues extends Component {
 							venues.map( (location, index) => {
 
 								const venue = location.venue;
-								console.log(venue);
+								//console.log(venue);
 								const photo = venue.photos
 								const venuePhotoPrefix = photo.groups[0].items[0].prefix || "";
 								const venuePhotoSuffix = photo.groups[0].items[0].suffix || "";
@@ -38,7 +38,6 @@ class Venues extends Component {
 															<img style={{padding: 5}} src={`${venuePhoto}`}/>
 														</div>
 														<div className='col-sm-8'>
-
 															<span style={{ marginRight: 10, color: '#aeb4b6'}}>{venueIndex}.</span>
 															<Link to={venue.id} onClick={() => this.props.fetchVenue(venue.id)}><h5 style={{paddingTop: 2, display: 'inline-block', wordWrap: "break-word"}}>{title}</h5></Link>
 															<div>
@@ -51,9 +50,6 @@ class Venues extends Component {
 																	</div>
 																<br />
 																<a style={{wordWrap: "break-word", fontSize: 11}} href={url}>{url}</a>
-
-
-
 															</div>
 														</div>
 													</div>

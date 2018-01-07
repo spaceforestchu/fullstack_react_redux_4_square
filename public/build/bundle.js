@@ -26481,7 +26481,7 @@ var Venues = function (_Component) {
 						venues.map(function (location, index) {
 
 							var venue = location.venue;
-							console.log(venue);
+							//console.log(venue);
 							var photo = venue.photos;
 							var venuePhotoPrefix = photo.groups[0].items[0].prefix || "";
 							var venuePhotoSuffix = photo.groups[0].items[0].suffix || "";
@@ -28389,26 +28389,30 @@ var VenuesMap = function (_Component) {
 		key: 'render',
 		value: function render() {
 
-			var markers = void 0;
+			var venues = this.props.venues;
 
-			// if (this.props.venues !== null) {
-			// 	markers = this.props.venues.map((venue, i) => {
-			// 		return (
-			// 			<Marker
-			// 				key={i}
-			// 				position={{ lat: venue.location.lat, lng: venue.location.lng}}
-			// 			/>
-			// 		)
-			// 	})
-			// } else {
-			// 	markers = <Marker position={{ lat: 40.7589, lng:-73.9851}}/>
-			// }
+			var markers = void 0;
+			if (venues !== null) {
+
+				markers = venues.map(function (location, i) {
+					var lat = location.venue.location.lat;
+					var lng = location.venue.location.lng;
+					var index = i + 1;
+					return _react2.default.createElement(_reactGoogleMaps.Marker, {
+						key: i,
+						position: { lat: lat, lng: lng },
+						label: index.toString()
+					});
+				});
+			} else {
+				markers = _react2.default.createElement(_reactGoogleMaps.Marker, { position: { lat: 40.7589, lng: -73.9851 } });
+			}
 
 			var MapWithAMarker = (0, _reactGoogleMaps.withGoogleMap)(function (props) {
 				return _react2.default.createElement(
 					_reactGoogleMaps.GoogleMap,
 					{
-						defaultZoom: 14,
+						defaultZoom: 15,
 						defaultCenter: { lat: 40.7589, lng: -73.9851 }
 					},
 					markers
