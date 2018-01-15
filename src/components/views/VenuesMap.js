@@ -38,8 +38,8 @@ class VenuesMap extends Component {
 );
 
 		const googleMap = 	<MapWithAMarker
-			containerElement={<div style={{ height: `100vh` }} />}
-			mapElement={<div style={{ height: `100vh` }} />}
+			containerElement={<div style={{ height: this.props.containerElement }} />}
+			mapElement={<div style={{ height: this.props.mapElement}} />}
 		/>
 
     return (

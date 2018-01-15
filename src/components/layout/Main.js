@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import { NavContainer } from '../containers';
-import { Venues } from '../views';
+import { Venues, VenueModal } from '../views';
 
 class Main extends Component {
 
   render() {
 
-    return (
+		return (
 			<div>
 				<NavContainer />
 				<Venues />

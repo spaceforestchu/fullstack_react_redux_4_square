@@ -3,11 +3,62 @@ import { connect } from 'react-redux';
 import actions from '../../actions';
 import VenuesMap from './VenuesMap';
 import { Link } from 'react-router-dom';
+import VenueModal from './VenueModal';
 
 class Venues extends Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			  modalIsOpen: false
+		}
+
+		// this.openModal = this.openModal.bind(this);
+		//  this.afterOpenModal = this.afterOpenModal.bind(this);
+		//  this.closeModal = this.closeModal.bind(this);
+
+	}
+
+	openModal = () => {
+		this.setState({modalIsOpen: true});
+	}
+
+	afterOpenModal = () => {
+		// references are now sync'd and can be accessed.
+		this.subtitle.style.color = '#f00';
+	}
+
+	closeModal = () => {
+		this.setState({modalIsOpen: false});
+	}
+
+
+  handleModal = () => {
+
+		this.openModal();
+
+	}
+
+	handleClicks = (id) => {
+		this.props.fetchVenue(id);
+		this.handleModal();
+	}
+
 	render(){
 
 		const venues = this.props.venues || [];
+
+		let modal;
+
+		if (this.state.modalIsOpen) {
+			modal = <VenueModal
+				isOpen={this.state.modalIsOpen}
+				closeModal={this.closeModal}
+				onAfterOpen={this.afterOpenModal}
+			
+				/>
+		}
 
 		return (
 			<div className='row' style={{width: 100 + '%'}}>
@@ -39,7 +90,15 @@ class Venues extends Component {
 														</div>
 														<div className='col-sm-8'>
 															<span style={{ marginRight: 10, color: '#aeb4b6'}}>{venueIndex}.</span>
-															<Link to={venue.id} onClick={() => this.props.fetchVenue(venue.id)}><h5 style={{paddingTop: 2, display: 'inline-block', wordWrap: "break-word"}}>{title}</h5></Link>
+															<Link
+																to='/'
+																onClick={ () => this.handleClicks(venue.id)}
+
+																>
+																<h5 style={{paddingTop: 2, display: 'inline-block', wordWrap: "break-word"}}>{title}</h5>
+
+																</Link>
+
 															<div>
 																<h5 style={{height: 15}}>{venueAddress}</h5>
 																<span>{boroughsAndCity}</span>
@@ -62,8 +121,9 @@ class Venues extends Component {
 					</ol>
 				</div>
 				<div className='col-md-8' style={{height: 100 +'vh', width: 100 + 'vh'}}>
-					<VenuesMap />
+					<VenuesMap containerElement='100vh' mapElement='100vh' />
 				</div>
+					{modal}
 			</div>
 		)
 	}

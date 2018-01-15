@@ -13,21 +13,19 @@ export default (state=initialState, action) => {
 			console.log('VENUES_RECEIVED: ', action);
 
 			updated['venues'] = action.venues;
-	
+
 			return updated;
 		case constants.FETCH_VENUE:
-
+			console.log('FETCH_VENUE', action);
 			const venueID = action.id;
 			const venues = updated.venues;
 			let foundVenue;
-			venues.filter((venue, index) => {
-				if (venue.id === venueID) {
-					foundVenue = venue;
+			venues.filter((location, index) => {
+				if (location.venue.id === venueID) {
+					foundVenue = location.venue;
 				}
 			});
-
 			updated['venue'] = foundVenue;
-
 			return updated
 		default:
 			return state;
