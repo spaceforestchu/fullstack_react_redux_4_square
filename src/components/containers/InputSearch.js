@@ -57,7 +57,7 @@ class InputSearch extends Component {
 	render(){
 		return(
 			 <form className="form-inline my-2 my-lg-0">
-					<input className="form-control mr-sm-2" type="text" placeholder="Enter zip-code" aria-label="Search" name='zipCode' onChange={this.updateZipCode}/>
+					<button className="btn btn-outline-success" type='button' style={{marginRight: 10}}><i className="fa fa-map-marker fa-lg" style={{marginRight: 3}} aria-hidden="true"></i> Find My Location </button>
 					<input className="form-control mr-sm-2" placeholder='e.g Food/Coffee/Thai/Sushi' name='title' onChange={this.updateZipCode}/>
  					<button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.handlSearchVenues}>Search</button>
 			</form>
