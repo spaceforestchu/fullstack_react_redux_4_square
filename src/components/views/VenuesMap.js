@@ -4,10 +4,36 @@ import {connect} from 'react-redux';
 
 class VenuesMap extends Component {
 
+	constructor(props){
+		super(props);
+
+		this.state = {
+			zoom: 11
+		}
+
+	}
+
+	componentWillReceiveProps(){
+		this.setState({
+			zoom: 15
+		});
+	}
+
+	// shouldComponentUpdate(nextProps, nextState) {
+  //
+	// 	if (this.props.geoLocation.lat === nextProps.geoLocation.lat && this.props.geoLocation.lng && nextProps.geoLocation.lng ) {
+	// 		return true;
+	// 	}
+  //
+	// 	return true;
+  // }
+
+
   render() {
 
 		const venues = this.props.venues;
-
+		const lngCurrentLocation = this.props.geoLocation.lng || null;
+		const latCurrentLocation = this.props.geoLocation.lat || null;
 
 		let markers;
 		if (venues !== null) {
@@ -25,13 +51,14 @@ class VenuesMap extends Component {
 				)
 			})
 		} else {
-			markers = <Marker position={{ lat: 40.7589, lng:-73.9851}}/>
+			markers = <Marker position={{ lat: Number(latCurrentLocation), lng: Number(lngCurrentLocation)}}/>
 		}
 
 	const MapWithAMarker = withGoogleMap(props =>
   <GoogleMap
-    defaultZoom={15}
-    defaultCenter={{ lat: 40.7589, lng: -73.9851 }}
+    defaultZoom={this.state.zoom}
+    defaultCenter={{ lat:Number(latCurrentLocation) || 40.7128, lng: Number(lngCurrentLocation) || -74.0060}}
+
   >
   	{markers}
   </GoogleMap>
@@ -51,7 +78,10 @@ class VenuesMap extends Component {
 }
 
 const stateToProps = (state) => {
-  return {venues: state.venue.venues}
+  return {
+		venues: state.venue.venues,
+		geoLocation: state.geoLocation.currentLocation
+	}
 }
 
 export default connect(stateToProps)(VenuesMap)

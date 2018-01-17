@@ -56,7 +56,7 @@ class Venues extends Component {
 				isOpen={this.state.modalIsOpen}
 				closeModal={this.closeModal}
 				onAfterOpen={this.afterOpenModal}
-			
+
 				/>
 		}
 
@@ -68,11 +68,20 @@ class Venues extends Component {
 							venues.map( (location, index) => {
 
 								const venue = location.venue;
-								//console.log(venue);
 								const photo = venue.photos
-								const venuePhotoPrefix = photo.groups[0].items[0].prefix || "";
-								const venuePhotoSuffix = photo.groups[0].items[0].suffix || "";
-								const venuePhoto = venuePhotoPrefix + '128x128' + venuePhotoSuffix;
+ 								let venuePhoto;
+
+
+								if (photo.count === 0) {
+									console.log(photo.count)
+									venuePhoto = '/images/No-image-found.jpg';
+								} else {
+									let venuePhotoPrefix = photo.groups[0].items[0].prefix;
+									let venuePhotoSuffix = photo.groups[0].items[0].suffix;
+
+									venuePhoto = venuePhotoPrefix + '128x128' + venuePhotoSuffix;
+								}
+
 								const title = venue.name;
 								const venueRating = venue.rating;
 								const boroughsAndCity = venue.location.formattedAddress[1].slice(0,13);

@@ -22,6 +22,7 @@ export default (state=initialState, action) => {
 			}
 
 			updated['currentLocation'] = currentLocation;
+			console.log(updated);
 			return updated;
 
 		default:

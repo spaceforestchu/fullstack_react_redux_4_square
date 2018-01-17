@@ -9,7 +9,7 @@ export default {
 	initialize: () => {
 		const reducers = combineReducers({
 			venue: venuesReducer,
-			geo: geoReducer
+			geoLocation: geoReducer
 		});
 
 		store = createStore(
