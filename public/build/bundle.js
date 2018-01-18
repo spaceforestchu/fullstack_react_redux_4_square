@@ -9214,19 +9214,8 @@ var VenuesMap = function (_Component) {
 			var latCurrentLocation = this.props.geoLocation.lat || null;
 
 			var markers = void 0;
-			var userMarkers = _react2.default.createElement(_reactGoogleMaps.Marker, { position: { lat: latCurrentLocation, lng: lngCurrentLocation } });
+			var userMarkers = _react2.default.createElement(_reactGoogleMaps.Marker, { position: { lat: Number(latCurrentLocation), lng: Number(lngCurrentLocation) } });
 			if (venues !== null) {
-
-				// const UserLocation = {
-				// 	venue: {
-				// 		location: {
-				// 			lat: latCurrentLocation,
-				// 			lng: lngCurrentLocation
-				// 		}
-				// 	}
-				// }
-				//
-				// venues.unshift(UserLocation);
 
 				markers = venues.map(function (location, i) {
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withGoogleMap, GoogleMap, Marker} from "react-google-maps";
+import {withGoogleMap, GoogleMap, Marker, InfoWindow} from "react-google-maps";
 import {connect} from 'react-redux';
 
 class VenuesMap extends Component {
@@ -19,6 +19,7 @@ class VenuesMap extends Component {
 		});
 	}
 
+
   render() {
 
 		const venues = this.props.venues;
@@ -26,19 +27,8 @@ class VenuesMap extends Component {
 		const latCurrentLocation = this.props.geoLocation.lat || null;
 
 		let markers;
-		let userMarkers =  <Marker position={{lat:latCurrentLocation, lng:lngCurrentLocation }} />
+		let userMarkers =  <Marker position={{lat:Number(latCurrentLocation), lng: Number(lngCurrentLocation) }} />
 		if (venues !== null) {
-
-			// const UserLocation = {
-			// 	venue: {
-			// 		location: {
-			// 			lat: latCurrentLocation,
-			// 			lng: lngCurrentLocation
-			// 		}
-			// 	}
-			// }
-      //
-			// venues.unshift(UserLocation);
 
 			markers = venues.map((location, i) => {
 
@@ -64,7 +54,7 @@ class VenuesMap extends Component {
     defaultCenter={{ lat:Number(latCurrentLocation) || 40.7128, lng: Number(lngCurrentLocation) || -74.0060}}
 
   >
-  	{markers}
+		{markers}
 		{userMarkers}
   </GoogleMap>
 );
