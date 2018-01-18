@@ -70,10 +70,10 @@ class Venues extends Component {
 								const venue = location.venue;
 								const photo = venue.photos
  								let venuePhoto;
-
+								console.log(photo)
 
 								if (photo.count === 0) {
-									console.log(photo.count)
+
 									venuePhoto = '/images/No-image-found.jpg';
 								} else {
 									let venuePhotoPrefix = photo.groups[0].items[0].prefix;

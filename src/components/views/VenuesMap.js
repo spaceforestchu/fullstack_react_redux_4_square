@@ -19,16 +19,6 @@ class VenuesMap extends Component {
 		});
 	}
 
-	// shouldComponentUpdate(nextProps, nextState) {
-  //
-	// 	if (this.props.geoLocation.lat === nextProps.geoLocation.lat && this.props.geoLocation.lng && nextProps.geoLocation.lng ) {
-	// 		return true;
-	// 	}
-  //
-	// 	return true;
-  // }
-
-
   render() {
 
 		const venues = this.props.venues;
@@ -36,12 +26,25 @@ class VenuesMap extends Component {
 		const latCurrentLocation = this.props.geoLocation.lat || null;
 
 		let markers;
+		let userMarkers =  <Marker position={{lat:latCurrentLocation, lng:lngCurrentLocation }} />
 		if (venues !== null) {
 
+			// const UserLocation = {
+			// 	venue: {
+			// 		location: {
+			// 			lat: latCurrentLocation,
+			// 			lng: lngCurrentLocation
+			// 		}
+			// 	}
+			// }
+      //
+			// venues.unshift(UserLocation);
+
 			markers = venues.map((location, i) => {
+
 				const lat = location.venue.location.lat
 				const lng = location.venue.location.lng
-				const index = i + 1;
+				const index = i + 1 ;
 				return (
 					<Marker
 						key={i}
@@ -51,6 +54,7 @@ class VenuesMap extends Component {
 				)
 			})
 		} else {
+			console.log('true');
 			markers = <Marker position={{ lat: Number(latCurrentLocation), lng: Number(lngCurrentLocation)}}/>
 		}
 
@@ -61,6 +65,7 @@ class VenuesMap extends Component {
 
   >
   	{markers}
+		{userMarkers}
   </GoogleMap>
 );
 

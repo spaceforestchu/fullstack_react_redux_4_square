@@ -9204,17 +9204,6 @@ var VenuesMap = function (_Component) {
 				zoom: 15
 			});
 		}
-
-		// shouldComponentUpdate(nextProps, nextState) {
-		//
-		// 	if (this.props.geoLocation.lat === nextProps.geoLocation.lat && this.props.geoLocation.lng && nextProps.geoLocation.lng ) {
-		// 		return true;
-		// 	}
-		//
-		// 	return true;
-		// }
-
-
 	}, {
 		key: 'render',
 		value: function render() {
@@ -9225,9 +9214,22 @@ var VenuesMap = function (_Component) {
 			var latCurrentLocation = this.props.geoLocation.lat || null;
 
 			var markers = void 0;
+			var userMarkers = _react2.default.createElement(_reactGoogleMaps.Marker, { position: { lat: latCurrentLocation, lng: lngCurrentLocation } });
 			if (venues !== null) {
 
+				// const UserLocation = {
+				// 	venue: {
+				// 		location: {
+				// 			lat: latCurrentLocation,
+				// 			lng: lngCurrentLocation
+				// 		}
+				// 	}
+				// }
+				//
+				// venues.unshift(UserLocation);
+
 				markers = venues.map(function (location, i) {
+
 					var lat = location.venue.location.lat;
 					var lng = location.venue.location.lng;
 					var index = i + 1;
@@ -9238,6 +9240,7 @@ var VenuesMap = function (_Component) {
 					});
 				});
 			} else {
+				console.log('true');
 				markers = _react2.default.createElement(_reactGoogleMaps.Marker, { position: { lat: Number(latCurrentLocation), lng: Number(lngCurrentLocation) } });
 			}
 
@@ -9249,7 +9252,8 @@ var VenuesMap = function (_Component) {
 						defaultCenter: { lat: Number(latCurrentLocation) || 40.7128, lng: Number(lngCurrentLocation) || -74.0060 }
 
 					},
-					markers
+					markers,
+					userMarkers
 				);
 			});
 
@@ -35972,9 +35976,10 @@ var Venues = function (_Component) {
 							var venue = location.venue;
 							var photo = venue.photos;
 							var venuePhoto = void 0;
+							console.log(photo);
 
 							if (photo.count === 0) {
-								console.log(photo.count);
+
 								venuePhoto = '/images/No-image-found.jpg';
 							} else {
 								var venuePhotoPrefix = photo.groups[0].items[0].prefix;
