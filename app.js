@@ -12,7 +12,7 @@ var users = require('./routes/users');
 var api = require('./routes/api');
 var geo = require('./routes/geolocation');
 
-mongoose.connect(process.env.DATABASE_URL, {useMongoClient: true}, function(err, res) {
+mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true}, function(err, res) {
   if (err) {
     throw console.error('Err: ' + err);
   } else {
