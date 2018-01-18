@@ -54215,17 +54215,6 @@ var InputSearch = function (_Component) {
 				};
 			}
 
-			if (_this.state.search.zipCode.length >= 5) {
-				options = {
-					client_id: 'PHQ4BAMKWAOOL3Z43BWDQL0MHJG4QUCV4OEEZAELEKNTO4K1',
-					client_secret: 'T4JTOW5HBIOPC3L3J14TBQNDPOMS25OHPF5WH5M2XLJNXJXM',
-					near: _this.state.search.zipCode || '',
-					query: _this.state.search.title || '',
-					v: '20180105',
-					venuePhotos: "1"
-				};
-			}
-
 			_axios2.default.get('https://api.foursquare.com/v2/venues/explore', {
 				params: options
 			}).then(function (response) {
@@ -54275,7 +54264,6 @@ var InputSearch = function (_Component) {
 					_react2.default.createElement('i', { className: 'fa fa-map-marker fa-lg', style: { marginRight: 3 }, 'aria-hidden': 'true' }),
 					' Find My Location '
 				),
-				_react2.default.createElement('input', { className: 'form-control mr-sm-2', type: 'text', placeholder: 'Enter zip-code', 'aria-label': 'Search', name: 'zipCode', onChange: this.updateZipCode }),
 				_react2.default.createElement('input', { className: 'form-control mr-sm-2', placeholder: 'e.g Food/Coffee/Thai/Sushi', name: 'title', onChange: this.updateZipCode }),
 				_react2.default.createElement(
 					'button',

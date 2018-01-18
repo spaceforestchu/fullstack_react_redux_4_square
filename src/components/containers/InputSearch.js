@@ -34,19 +34,6 @@ class InputSearch extends Component {
 			}
 		}
 
-		if (this.state.search.zipCode.length >= 5) {
-			options = {
-				client_id: 'PHQ4BAMKWAOOL3Z43BWDQL0MHJG4QUCV4OEEZAELEKNTO4K1',
-				client_secret: 'T4JTOW5HBIOPC3L3J14TBQNDPOMS25OHPF5WH5M2XLJNXJXM',
-				near: this.state.search.zipCode || '',
-				query: this.state.search.title || '',
-				v: '20180105',
-				venuePhotos: "1"
-			}
-		}
-
-
-
 		axios.get('https://api.foursquare.com/v2/venues/explore', {
 			params: options
 		})
@@ -80,7 +67,6 @@ class InputSearch extends Component {
 		return(
 			 <form className="form-inline my-2 my-lg-0">
 					<button onClick={() => { this.props.getLocation() }} className="btn btn-outline-success" type='button' style={{marginRight: 10}}><i className="fa fa-map-marker fa-lg" style={{marginRight: 3}} aria-hidden="true"></i> Find My Location </button>
-					<input className="form-control mr-sm-2" type="text" placeholder="Enter zip-code" aria-label="Search" name='zipCode' onChange={this.updateZipCode}/>
 				  <input className="form-control mr-sm-2" placeholder='e.g Food/Coffee/Thai/Sushi' name='title' onChange={this.updateZipCode}/>
  					<button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.handlSearchVenues}>Search</button>
 			</form>
