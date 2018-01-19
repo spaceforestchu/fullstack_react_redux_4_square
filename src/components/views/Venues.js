@@ -14,10 +14,6 @@ class Venues extends Component {
 			  modalIsOpen: false
 		}
 
-		// this.openModal = this.openModal.bind(this);
-		//  this.afterOpenModal = this.afterOpenModal.bind(this);
-		//  this.closeModal = this.closeModal.bind(this);
-
 	}
 
 	openModal = () => {
@@ -70,7 +66,6 @@ class Venues extends Component {
 								const venue = location.venue;
 								const photo = venue.photos
  								let venuePhoto;
-								console.log(photo)
 
 								if (photo.count === 0) {
 

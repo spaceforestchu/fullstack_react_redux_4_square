@@ -9190,10 +9190,22 @@ var VenuesMap = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (VenuesMap.__proto__ || Object.getPrototypeOf(VenuesMap)).call(this, props));
 
-		_this.state = {
-			zoom: 11
+		_this.handleToggleOpen = function () {
+			_this.setState({
+				isOpen: true
+			});
 		};
 
+		_this.handleToggleClose = function () {
+			_this.setState({
+				isOpen: false
+			});
+		};
+
+		_this.state = {
+			zoom: 11,
+			isOpen: false
+		};
 		return _this;
 	}
 
@@ -9213,6 +9225,8 @@ var VenuesMap = function (_Component) {
 			var lngCurrentLocation = this.props.geoLocation.lng || null;
 			var latCurrentLocation = this.props.geoLocation.lat || null;
 
+			console.log(this.state.isOpen);
+
 			var markers = void 0;
 			var userMarkers = _react2.default.createElement(_reactGoogleMaps.Marker, { position: { lat: Number(latCurrentLocation), lng: Number(lngCurrentLocation) } });
 			if (venues !== null) {
@@ -9222,11 +9236,31 @@ var VenuesMap = function (_Component) {
 					var lat = location.venue.location.lat;
 					var lng = location.venue.location.lng;
 					var index = i + 1;
-					return _react2.default.createElement(_reactGoogleMaps.Marker, {
-						key: i,
-						position: { lat: lat, lng: lng },
-						label: index.toString()
-					});
+					return _react2.default.createElement(
+						_reactGoogleMaps.Marker,
+						{
+							key: i,
+							position: { lat: lat, lng: lng },
+							label: index.toString(),
+							onClick: function onClick() {
+								return _this2.handleToggleOpen();
+							}
+						},
+						_this2.state.isOpen && _react2.default.createElement(
+							_reactGoogleMaps.InfoWindow,
+							{
+								onCloseClick: function onCloseClick() {
+									return _this2.handleToggleClose();
+								},
+								disableAutoPan: true
+							},
+							_react2.default.createElement(
+								'span',
+								null,
+								'Something'
+							)
+						)
+					);
 				});
 			} else {
 				console.log('true');
@@ -35458,6 +35492,12 @@ var _containers = __webpack_require__(234);
 
 var _views = __webpack_require__(158);
 
+var _reactRedux = __webpack_require__(72);
+
+var _actions = __webpack_require__(245);
+
+var _actions2 = _interopRequireDefault(_actions);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35469,13 +35509,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Main = function (_Component) {
 	_inherits(Main, _Component);
 
-	function Main(props) {
+	function Main() {
 		_classCallCheck(this, Main);
 
-		return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+		return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
 	}
 
 	_createClass(Main, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.props.getLocation();
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 
@@ -35491,7 +35536,15 @@ var Main = function (_Component) {
 	return Main;
 }(_react.Component);
 
-exports.default = Main;
+var dispatchToProps = function dispatchToProps(dispatch) {
+	return {
+		getLocation: function getLocation() {
+			return dispatch(_actions2.default.getLocation());
+		}
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(null, dispatchToProps)(Main);
 
 /***/ }),
 /* 534 */
@@ -35925,12 +35978,9 @@ var Venues = function (_Component) {
 
 		_this.state = {
 			modalIsOpen: false
+		};
 
-			// this.openModal = this.openModal.bind(this);
-			//  this.afterOpenModal = this.afterOpenModal.bind(this);
-			//  this.closeModal = this.closeModal.bind(this);
-
-		};return _this;
+		return _this;
 	}
 
 	_createClass(Venues, [{
@@ -35965,7 +36015,6 @@ var Venues = function (_Component) {
 							var venue = location.venue;
 							var photo = venue.photos;
 							var venuePhoto = void 0;
-							console.log(photo);
 
 							if (photo.count === 0) {
 
@@ -54200,23 +54249,17 @@ var InputSearch = function (_Component) {
 			event.preventDefault();
 			var lat = _this.props.geoLocation.lat;
 			var lng = _this.props.geoLocation.lng;
-			var lngAndLat = null;
-			var options = {};
+			var lngAndLat = lat + ',' + lng;
 
-			if (_this.props.geoLocation !== null) {
-				lngAndLat = lat + ',' + lng;
-				options = {
+			_axios2.default.get('https://api.foursquare.com/v2/venues/explore', {
+				params: {
 					client_id: 'PHQ4BAMKWAOOL3Z43BWDQL0MHJG4QUCV4OEEZAELEKNTO4K1',
 					client_secret: 'T4JTOW5HBIOPC3L3J14TBQNDPOMS25OHPF5WH5M2XLJNXJXM',
 					ll: lngAndLat,
 					query: _this.state.search.title || '',
 					v: '20180105',
 					venuePhotos: "1"
-				};
-			}
-
-			_axios2.default.get('https://api.foursquare.com/v2/venues/explore', {
-				params: options
+				}
 			}).then(function (response) {
 				var venues = response.data.response.groups[0].items;
 				_this.props.venuesReceived(venues);
@@ -54251,19 +54294,9 @@ var InputSearch = function (_Component) {
 	_createClass(InputSearch, [{
 		key: 'render',
 		value: function render() {
-			var _this2 = this;
-
 			return _react2.default.createElement(
 				'form',
 				{ className: 'form-inline my-2 my-lg-0' },
-				_react2.default.createElement(
-					'button',
-					{ onClick: function onClick() {
-							_this2.props.getLocation();
-						}, className: 'btn btn-outline-success', type: 'button', style: { marginRight: 10 } },
-					_react2.default.createElement('i', { className: 'fa fa-map-marker fa-lg', style: { marginRight: 3 }, 'aria-hidden': 'true' }),
-					' Find My Location '
-				),
 				_react2.default.createElement('input', { className: 'form-control mr-sm-2', placeholder: 'e.g Food/Coffee/Thai/Sushi', name: 'title', onChange: this.updateZipCode }),
 				_react2.default.createElement(
 					'button',
@@ -54290,9 +54323,6 @@ var dispatchToProps = function dispatchToProps(dispatch) {
 	return {
 		venuesReceived: function venuesReceived(venues) {
 			return dispatch(_actions2.default.venuesReceived(venues));
-		},
-		getLocation: function getLocation() {
-			return dispatch(_actions2.default.getLocation());
 		}
 	};
 };

@@ -8,14 +8,26 @@ class VenuesMap extends Component {
 		super(props);
 
 		this.state = {
-			zoom: 11
+			zoom: 11,
+			isOpen: false
 		}
-
 	}
 
 	componentWillReceiveProps(){
 		this.setState({
 			zoom: 15
+		});
+	}
+
+	handleToggleOpen = () => {
+		this.setState({
+			isOpen: true
+		});
+	}
+
+	handleToggleClose = () => {
+		this.setState({
+			isOpen: false
 		});
 	}
 
@@ -25,6 +37,8 @@ class VenuesMap extends Component {
 		const venues = this.props.venues;
 		const lngCurrentLocation = this.props.geoLocation.lng || null;
 		const latCurrentLocation = this.props.geoLocation.lat || null;
+
+		console.log(this.state.isOpen);
 
 		let markers;
 		let userMarkers =  <Marker position={{lat:Number(latCurrentLocation), lng: Number(lngCurrentLocation) }} />
@@ -40,7 +54,17 @@ class VenuesMap extends Component {
 						key={i}
 						position={{ lat: lat, lng: lng}}
 						label={index.toString()}
-					/>
+						onClick={() => this.handleToggleOpen()}
+					>
+					{this.state.isOpen &&
+					<InfoWindow
+							onCloseClick={() => this.handleToggleClose()}
+							disableAutoPan={true}
+							>
+						<span>Something</span>
+					</InfoWindow>
+				 }
+				</Marker>
 				)
 			})
 		} else {
@@ -61,7 +85,7 @@ class VenuesMap extends Component {
 
 		const googleMap = 	<MapWithAMarker
 			containerElement={<div style={{ height: this.props.containerElement }} />}
-			mapElement={<div style={{ height: this.props.mapElement}} />}
+			mapElement={<div style={{ height: this.props.mapElement}}  />}
 		/>
 
     return (
