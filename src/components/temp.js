@@ -344,3 +344,20 @@ const stateToProps = (state) => {
 }
 
 export default connect(stateToProps)(VenuesMap)
+
+
+
+<Marker
+	key={i}
+	position={{ lat: lat, lng: lng}}
+	label={index.toString()}
+	onClick={() => this.handleToggleOpen()}
+>
+
+<InfoWindowMap
+		handleCloseCall={this.handleToggleClose}
+		handleInfoWindow={this.state.isOpen}
+		/>
+
+
+</Marker>
