@@ -55154,9 +55154,22 @@ var InfoWindowMap = function (_Component) {
 	}
 
 	_createClass(InfoWindowMap, [{
-		key: "render",
+		key: 'render',
 		value: function render() {
 			var _this2 = this;
+
+			var photo = this.props.location.venue.photos;
+			var number = this.props.location.venue.contact.phone;
+			var venuePhoto = void 0;
+
+			if (photo.count === 0) {
+				venuePhoto = '/images/No-image-found.jpg';
+			} else {
+				var venuePhotoPrefix = photo.groups[0].items[0].prefix;
+				var venuePhotoSuffix = photo.groups[0].items[0].suffix;
+
+				venuePhoto = venuePhotoPrefix + '50x50' + venuePhotoSuffix;
+			}
 
 			return _react2.default.createElement(
 				_reactGoogleMaps.Marker,
@@ -55172,9 +55185,19 @@ var InfoWindowMap = function (_Component) {
 					_reactGoogleMaps.InfoWindow,
 					{ onCloseClick: this.props.handleCloseCall },
 					_react2.default.createElement(
-						"h1",
+						'div',
 						null,
-						this.props.location.venue.name
+						_react2.default.createElement(
+							'h4',
+							null,
+							this.props.location.venue.name
+						),
+						_react2.default.createElement('img', { src: '' + venuePhoto }),
+						_react2.default.createElement(
+							'span',
+							null,
+							number
+						)
 					)
 				)
 			);

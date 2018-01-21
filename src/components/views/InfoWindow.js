@@ -29,6 +29,21 @@ class InfoWindowMap extends Component {
 
   render() {
 
+		const photo = this.props.location.venue.photos;
+		const number = this.props.location.venue.contact.phone;
+		let venuePhoto;
+
+		if (photo.count === 0) {
+			venuePhoto = '/images/No-image-found.jpg';
+		} else {
+			let venuePhotoPrefix = photo.groups[0].items[0].prefix;
+			let venuePhotoSuffix = photo.groups[0].items[0].suffix;
+
+			venuePhoto = venuePhotoPrefix + '50x50' + venuePhotoSuffix;
+		}
+
+
+
     return (
 			<Marker
 				key={this.props.index}
@@ -40,7 +55,11 @@ class InfoWindowMap extends Component {
 			{
 				this.state.isOpen &&
 			 <InfoWindow onCloseClick={this.props.handleCloseCall}>
-				 <h1>{this.props.location.venue.name}</h1>
+				 <div>
+					 <h4>{this.props.location.venue.name}</h4>
+					<img src={`${venuePhoto}`} />
+					<span>{number}</span>
+				 </div>
 			 </InfoWindow>
 		 	}
 
