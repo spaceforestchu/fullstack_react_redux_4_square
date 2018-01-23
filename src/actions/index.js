@@ -24,5 +24,11 @@ export default {
 					console.log('ERROR: ' + err);
 				});
 		}
-  }
+  },
+	scrollToList: (id) => {
+		return {
+			type: constants.SCROLL_TO_LIST,
+			id: id
+		}
+	}
 }

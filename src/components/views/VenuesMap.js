@@ -2,6 +2,15 @@ import React, {Component} from 'react';
 import {withGoogleMap, GoogleMap, Marker} from "react-google-maps";
 import {connect} from 'react-redux';
 import InfoWindowMap from './InfoWindow';
+import {
+  DirectLink,
+  Element,
+  Link,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller
+} from 'react-scroll'
 
 class VenuesMap extends Component {
 
@@ -21,6 +30,8 @@ class VenuesMap extends Component {
 	}
 
 
+	
+
   render() {
 
 		const venues = this.props.venues;
@@ -32,18 +43,21 @@ class VenuesMap extends Component {
 		if (venues !== null) {
 
 			markers = venues.map((location, i) => {
-				console.log(location)
+				//console.log(location)
 				const lat = location.venue.location.lat
 				const lng = location.venue.location.lng
 				const index = i + 1 ;
 				return (
-					<InfoWindowMap
-						key={index}
-						lat={lat}
-						lng={lng}
-						index={index}
-						location={location}
-						/>
+
+						<InfoWindowMap
+							key={index}
+							lat={lat}
+							lng={lng}
+							index={index}
+							location={location}
+							indexValue={index}
+							/>
+
 				)
 			})
 		} else {
