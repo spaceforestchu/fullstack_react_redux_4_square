@@ -6,15 +6,6 @@ import { Link } from 'react-router-dom';
 import VenueModal from './VenueModal';
 import VenueView from './venueView';
 
-import {
-  DirectLink,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller
-} from 'react-scroll'
-
 class Venues extends Component {
 
 	constructor(props) {
@@ -52,22 +43,6 @@ class Venues extends Component {
 	}
 
 
- ScrollToId = (id) => {
-
-	 scroller.scrollTo(id -1 , {
-		 smooth: true,
-		 offset: 50
-	 })
- }
-
-
-
-	componentDidUpdate(prevProps, prevState){
-		console.log(prevProps, prevState);
-	}
-
-
-
 	scrollToDiv = () => {
 		console.log('scrollToDiv on Click', this.scrollToId);
 
@@ -82,7 +57,7 @@ class Venues extends Component {
 			this.divEl.scrollTop = offsetTop;
 		}
 	}
-
+	//make it a class variable
 	scrollToId = null;
 
 	componentWillReceiveProps(nextProps) {
@@ -97,12 +72,6 @@ class Venues extends Component {
 
 
 	render(){
-
-		if (this.props.scrollToId !== null) {
-			 console.log(this.props.scrollToId);
-			 this.ScrollToId(this.props.scrollToId);
-		 }
-
 
 		const venues = this.props.venues || [];
 

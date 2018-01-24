@@ -11,7 +11,7 @@ class VenuesMap extends Component {
 		this.state = {
 			zoom: 11,
 			isOpen: false,
-			mapHeight: 100
+			mapHeight: 92
 		}
 	}
 

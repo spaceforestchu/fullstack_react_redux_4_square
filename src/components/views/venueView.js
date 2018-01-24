@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Link, DirectLink, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import { connect } from 'react-redux';
-import $ from 'jquery';
+import { Link } from 'react-router-dom';
 
 class VenueView extends Component {
 
