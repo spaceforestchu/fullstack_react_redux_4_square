@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link, DirectLink, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import { connect } from 'react-redux';
+import $ from 'jquery';
 
 class VenueView extends Component {
 
@@ -9,44 +10,11 @@ class VenueView extends Component {
 	}
 
 
-	componentDidMount () {
-
-	 Events.scrollEvent.register('begin', function(to, element) {
-		 console.log("begin", arguments, to, element);
-	 });
-
-	 Events.scrollEvent.register('end', function(to, element) {
-		 console.log("end", arguments, to, element);
-	 });
-
-	 scrollSpy.update();
-
- }
-
- componentWillUnmount () {
-	 Events.scrollEvent.remove('begin');
-	 Events.scrollEvent.remove('end');
- }
-
-
-	ScrollToId = (id) => {
-		scroller.scrollTo(id, {
-		  smooth: true,
-		  containerId: id,
-		  offset: 50
-		})
-	}
-
   render() {
-
-		if (this.props.scrollToId !== null) {
-			console.log(this.props.scrollToId);
-			this.ScrollToId(this.props.scrollToId);
-		}
 
     return (
 
-			<ol>
+			<ol >
 
 				{
 					this.props.venues.map( (location, index) => {
@@ -72,10 +40,10 @@ class VenueView extends Component {
 						const venueAddress = venue.location.address;
 						const formattedPhone = (venue.contact.formattedPhone ? venue.contact.formattedPhone : '')
 						const url = venue.url;
-
+						const id = venue.id;
 						return (
 
-								<li style={{listStyleType: 'none'}} key={index} id={`${venueIndex}`} name={`${venueIndex}`} >
+								<li containerid={`${venueIndex}`} style={{listStyleType: 'none'}} key={index} id={`venueItem_${id}`}>
 									<div style={{padding:1, marginBottom: 12, backgroundColor: '#f9f9f9'}}>
 										<div className='container' style={{padding: 0}}>
 												<div className='row'>

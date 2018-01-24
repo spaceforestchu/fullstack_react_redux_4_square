@@ -16,6 +16,12 @@ module.exports = {
 	 net: 'empty',
 	 tls: 'empty'
  },
+ plugins: [
+	 new webpack.ProvidePlugin({
+		'$': 'jquery',
+		'jQuery': 'jquery'
+	})
+ ],
 	devtool: '#source-map',
 	module: {
 		loaders: [

@@ -483,3 +483,15 @@ React.render(
   <Section />,
   document.getElementById('example')
 );
+
+
+====
+<div className='row' style={{width: 100 + '%'}}>
+			<div className='col-md-4 col-md-offset-8' style={{overflowY: 'scroll', height: 100 +'vh'}} name='venueList'>
+				<VenueView venues={venues} handleClicks={this.handleClicks}/>
+			</div>
+			<div className='col-md-8' style={{height: 100 +'vh', width: 100 + 'vh'}}>
+				<VenuesMap containerElement='100vh' mapElement='100vh' />
+			</div>
+				{modal}
+		</div>

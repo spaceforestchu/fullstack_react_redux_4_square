@@ -6,6 +6,15 @@ import { Link } from 'react-router-dom';
 import VenueModal from './VenueModal';
 import VenueView from './venueView';
 
+import {
+  DirectLink,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller
+} from 'react-scroll'
+
 class Venues extends Component {
 
 	constructor(props) {
@@ -42,7 +51,58 @@ class Venues extends Component {
 		this.handleModal();
 	}
 
+
+ ScrollToId = (id) => {
+
+	 scroller.scrollTo(id -1 , {
+		 smooth: true,
+		 offset: 50
+	 })
+ }
+
+
+
+	componentDidUpdate(prevProps, prevState){
+		console.log(prevProps, prevState);
+	}
+
+
+
+	scrollToDiv = () => {
+		console.log('scrollToDiv on Click', this.scrollToId);
+
+		if(!this.scrollToId) return;
+
+		const elId = `venueItem_${this.scrollToId}`;
+		const itemDiv = document.getElementById(`venueItem_${this.scrollToId}`);
+		console.log('item:', itemDiv, 'id:', elId);
+		if(itemDiv){
+			const offsetTop = itemDiv.offsetTop;
+			console.log('[scrollToDiv] Div to scroll to:', itemDiv, 'offsetTop:', offsetTop);
+			this.divEl.scrollTop = offsetTop;
+		}
+	}
+
+	scrollToId = null;
+
+	componentWillReceiveProps(nextProps) {
+		console.log('100 nextProps', nextProps);
+
+		if(nextProps.scrollToId && nextProps.scrollToId !== this.props.scrollToId){
+			this.scrollToId = nextProps.scrollToId;
+			this.scrollToDiv();
+		}
+
+	}
+
+
 	render(){
+
+		if (this.props.scrollToId !== null) {
+			 console.log(this.props.scrollToId);
+			 this.ScrollToId(this.props.scrollToId);
+		 }
+
 
 		const venues = this.props.venues || [];
 
@@ -59,7 +119,7 @@ class Venues extends Component {
 
 		return (
 			<div className='row' style={{width: 100 + '%'}}>
-				<div className='col-md-4 col-md-offset-8' style={{overflowY: 'scroll', height: 100 +'vh'}}>
+				<div ref={el => this.divEl = el} className='col-md-4 col-md-offset-8' name='venueList' style={{overflowY: 'scroll', height: 100 +'vh'}}>
 					<VenueView venues={venues} handleClicks={this.handleClicks}/>
 				</div>
 				<div className='col-md-8' style={{height: 100 +'vh', width: 100 + 'vh'}}>
@@ -73,7 +133,8 @@ class Venues extends Component {
 
 const stateToProps = (state) => {
 	return {
-		venues: state.venue.venues
+		venues: state.venue.venues,
+		scrollToId: state.scrollToView.id
 	}
 }
 

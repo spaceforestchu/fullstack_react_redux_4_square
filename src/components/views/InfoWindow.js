@@ -23,26 +23,6 @@ class InfoWindowMap extends Component {
 
   }
 
-
-	componentDidMount () {
-
-	 Events.scrollEvent.register('begin', function(to, element) {
-		 console.log("begin", arguments, to, element);
-	 });
-
-	 Events.scrollEvent.register('end', function(to, element) {
-		 console.log("end", arguments, to, element);
-	 });
-
-	 scrollSpy.update();
-
- }
-
- componentWillUnmount () {
-	 Events.scrollEvent.remove('begin');
-	 Events.scrollEvent.remove('end');
- }
-
   handleToggleOpen = () => {
 
     this.setState({isOpen: true});
@@ -54,10 +34,6 @@ class InfoWindowMap extends Component {
 
     this.props.scrollToList(id);
   }
-
-	handleSetActive = (to) => {
-		//console.log(to);
-	}
 
   render() {
 
@@ -79,11 +55,10 @@ class InfoWindowMap extends Component {
 	      <Marker key={this.props.index} position={{
 	          lat: this.props.lat,
 	          lng: this.props.lng
-	        }} label={this.props.index.toString()} onClick={() => this.handleClicks(this.props.indexValue)}>
+	        }} label={this.props.index.toString()} onClick={() => this.handleClicks(this.props.venueID)}>
 
 	        {
 	          this.state.isOpen &&
-						<Link activeclass="active" spy={true} smooth={true} offset={50} duration={500} to='venueElements' containerId={`${this.props.indexValue}`} onSetActive={this.handleSetActive(this.props.indexValue)}>
 
 						<InfoWindow onCloseClick={() => this.setState({isOpen: false})}>
 	              <div>
@@ -92,7 +67,7 @@ class InfoWindowMap extends Component {
 	                <span>{number}</span>
 	              </div>
 	            </InfoWindow>
-									 </Link>
+
 	        }
 
 	      </Marker>
