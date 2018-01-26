@@ -1,15 +1,6 @@
 import React, {Component} from 'react';
 import {Marker, InfoWindow} from "react-google-maps";
 import actions from '../../actions';
-import {
-  DirectLink,
-  Element,
-  Link,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller
-} from 'react-scroll'
 import {connect} from 'react-redux';
 
 class InfoWindowMap extends Component {
@@ -35,6 +26,7 @@ class InfoWindowMap extends Component {
     this.props.scrollToList(id);
   }
 
+
   render() {
 
     const photo = this.props.location.venue.photos;
@@ -55,7 +47,9 @@ class InfoWindowMap extends Component {
 	      <Marker key={this.props.index} position={{
 	          lat: this.props.lat,
 	          lng: this.props.lng
-	        }} label={this.props.index.toString()} onClick={() => this.handleClicks(this.props.venueID)}>
+	        }} label={this.props.index.toString()}
+					onClick={() => this.handleClicks(this.props.venueID)}
+					>
 
 	        {
 	          this.state.isOpen &&

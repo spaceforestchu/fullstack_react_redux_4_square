@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
-import VenuesMap from './VenuesMap';
+import VenueDirection from './VenueDirection';
 import { connect } from 'react-redux';
 
 Modal.setAppElement('#app');
@@ -36,7 +36,7 @@ class VenueModal extends Component {
 				<div className='row'>
 					<div className='col-md-12' style={{padding: 'auto', margin: 'auto'}}>
 						<span onClick={() => this.props.closeModal()} className="oi oi-x" style={{marginTop: 5}}></span>
-						<VenuesMap containerElement='80vh' mapElement='100%'/>
+						<VenueDirection />
 					</div>
 				</div>
     </Modal>)

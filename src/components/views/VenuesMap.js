@@ -35,7 +35,7 @@ class VenuesMap extends Component {
 		if (venues !== null) {
 
 			markers = venues.map((location, i) => {
-				console.log(location)
+
 				const lat = location.venue.location.lat
 				const lng = location.venue.location.lng
 				const index = i + 1 ;
@@ -51,6 +51,7 @@ class VenuesMap extends Component {
 							location={location}
 							indexValue={index}
 							venueID={venueID}
+							
 							/>
 
 				)

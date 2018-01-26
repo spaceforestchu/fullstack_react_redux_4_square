@@ -495,3 +495,6 @@ React.render(
 			</div>
 				{modal}
 		</div>
+
+====
+<VenuesMap containerElement='80vh' mapElement='100%'/>

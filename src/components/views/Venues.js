@@ -12,7 +12,8 @@ class Venues extends Component {
 		super(props);
 
 		this.state = {
-			  modalIsOpen: false
+			  modalIsOpen: false,
+				id: null
 		}
 
 	}
@@ -38,6 +39,9 @@ class Venues extends Component {
 	}
 
 	handleClicks = (id) => {
+		this.setState({
+			id: id
+		})
 		this.props.fetchVenue(id);
 		this.handleModal();
 	}
@@ -82,14 +86,14 @@ class Venues extends Component {
 				isOpen={this.state.modalIsOpen}
 				closeModal={this.closeModal}
 				onAfterOpen={this.afterOpenModal}
-
 				/>
 		}
 
 		return (
 			<div className='row' style={{width: 100 + '%'}}>
 				<div ref={el => this.divEl = el} className='col-md-4 col-md-offset-8' name='venueList' style={{overflowY: 'scroll', height: 100 +'vh'}}>
-					<VenueView venues={venues} handleClicks={this.handleClicks}/>
+					<VenueView venues={venues} handleClicks={this.handleClicks}
+						/>
 				</div>
 				<div className='col-md-8' style={{height: 100 +'vh', width: 100 + 'vh'}}>
 					<VenuesMap containerElement='100vh' mapElement='100vh' />
